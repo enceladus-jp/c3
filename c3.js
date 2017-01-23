@@ -1561,6 +1561,14 @@
             if (isAllNegative) { padding_top = -yDomainMax; }
         }
         domain = [yDomainMin - padding_bottom, yDomainMax + padding_top];
+
+        // >> Begin Patch. yjkogure@enceladus.co.jp
+        // Always use specified y-axis scale
+        if (Array.isArray(config.axis_y_tick_values) && (config.axis_y_tick_values.length > 1)) {
+            domain[0] = config.axis_y_tick_values[0] ;
+            domain[1] = config.axis_y_tick_values[config.axis_y_tick_values.length - 1] ;
+        }
+        // << End Patch
         return isInverted ? domain.reverse() : domain;
     };
     c3_chart_internal_fn.getXDomainMin = function (targets) {
